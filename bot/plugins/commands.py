@@ -3,6 +3,7 @@
 # (c) @AlbertEinsteinTG
 
 from pyrogram import filters, Client
+from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from bot import Translation # pylint: disable=import-error
 from bot.database import Database # pylint: disable=import-error
@@ -11,7 +12,27 @@ db = Database()
 
 @Client.on_message(filters.command(["start"]) & filters.private, group=1)
 async def start(bot, update):
-    
+
+
+    update_channel = "pakkismovieshub"
+    if update_channel:
+        try:
+            user = await bot.get_chat_member(update_channel, update.chat.id)
+            if user.status == "kicked":
+               await update.reply_text("🤭 Sorry Dude, You are **B A N N E D 🤣🤣🤣**")
+               return
+        except UserNotParticipant:
+            await update.reply_text(
+                text="Want Movies!? What looking for..Click the below link and join Step 2 Come back to group and click on the link which u want then click start button ",
+                reply_markup=InlineKeyboardMarkup([
+                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/pakkismovieshub")]
+              ])
+            )
+            return
+        except Exception:
+            await update.reply_text("Something Wrong. Contact my Support Group")
+            return
+
     try:
         file_uid = update.command[1]
     except IndexError:
@@ -38,7 +59,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/CrazyBotsz"
+                                    'Join Channel', url="https://t.me/Cinema_clubadmin123"
                                 )
                         ]
                     ]
@@ -89,12 +110,12 @@ async def start(bot, update):
         return
 
     buttons = [[
-        InlineKeyboardButton('Developers', url='https://t.me/CrazyBotsz'),
-        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/AlbertEinsteinTG/Adv-Auto-Filter-Bot-V2')
+        InlineKeyboardButton('Developers', url='https://t.me/madshifter'),
+        InlineKeyboardButton('Join Group 🧾', url ='https://t.me/cinema_clubadmin12')
     ],[
-        InlineKeyboardButton('Support 🛠', url='https://t.me/CrazyBotszGrp')
+        InlineKeyboardButton('Join Channel  🛠', url='https://t.me/Cinema_clubadmin123')
     ],[
-        InlineKeyboardButton('Help ⚙', callback_data="help")
+        InlineKeyboardButton('New ott channel ⚙', url="https://t.me/pakkismovieshub")
     ]]
     
     reply_markup = InlineKeyboardMarkup(buttons)
