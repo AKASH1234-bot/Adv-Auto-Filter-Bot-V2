@@ -450,7 +450,7 @@ class Database(metaclass=Singleton):
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
                 
         db_list = self.fcol.find({"group_id": group_id, "file_name": regex}, 
-                          {"file_name": 1, "file_type": 1, "file_link": 1, "file_size": 1, "unique_id": 1, "chat_id": 1, "file_caption": 0, "_id":0, "file_id": 0, "group_id": 0})     
+                          {"_id":0, "file_caption": 0, "file_id": 0, "group_id": 0})     
         
         for document in await db_list.to_list(length=600):
             
