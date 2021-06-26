@@ -59,7 +59,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Join Channel', url="https://t.me/Cinema_clubadmin123"
+                                    'Join Channel', url="https://t.me/Cinema_clubadmin1"
                                 )
                         ]
                     ]
@@ -113,7 +113,7 @@ async def start(bot, update):
         InlineKeyboardButton('Developers', url='https://t.me/madshifter'),
         InlineKeyboardButton('Join Group 🧾', url ='https://t.me/cinema_clubadmin12')
     ],[
-        InlineKeyboardButton('Join Channel  🛠', url='https://t.me/Cinema_clubadmin123')
+        InlineKeyboardButton('Join Channel  🛠', url='https://t.me/Cinema_clubadmin1')
     ],[
         InlineKeyboardButton('New ott channel ⚙', url="https://t.me/pakkismovieshub")
     ]]
