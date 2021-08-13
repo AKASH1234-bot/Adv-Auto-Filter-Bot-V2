@@ -25,7 +25,7 @@ async def start(bot, update):
             await update.reply_text(
                 text="Want Movies!? What looking for..Click the below link and join Step 2 Come back to group and click on the link which u want then click start button ",
                 reply_markup=InlineKeyboardMarkup([
-                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/ https://haicinemaclub")]
+                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/haicinemaclub")]
               ])
             )
             return
