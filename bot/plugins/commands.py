@@ -14,7 +14,7 @@ db = Database()
 async def start(bot, update):
 
 
-    update_channel = "pakkismovieshub"
+    update_channel = "haicinemaclub"
     if update_channel:
         try:
             user = await bot.get_chat_member(update_channel, update.chat.id)
@@ -25,7 +25,7 @@ async def start(bot, update):
             await update.reply_text(
                 text="Want Movies!? What looking for..Click the below link and join Step 2 Come back to group and click on the link which u want then click start button ",
                 reply_markup=InlineKeyboardMarkup([
-                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/pakkismovieshub")]
+                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/ https://haicinemaclub")]
               ])
             )
             return
