@@ -54,7 +54,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    '🔶𝙉𝙀𝙒 𝙈𝙊𝙫𝙄𝙀𝙎🔶', url="https://t.me/haicinemaclub"
+                                    '🔶𝙉𝙀𝙒 𝙈𝙊𝙫𝙄𝙀𝙎🔶', url="https://t.me/cinema_club1"
                                 )
                         ]
                     ]
