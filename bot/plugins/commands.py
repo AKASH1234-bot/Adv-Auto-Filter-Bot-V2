@@ -3,8 +3,8 @@
 # (c) @AlbertEinsteinTG
 
 from pyrogram import filters, Client
-from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.errors import UserNotParticipant
 from bot import Translation # pylint: disable=import-error
 from bot.database import Database # pylint: disable=import-error
 
@@ -12,27 +12,25 @@ db = Database()
 
 @Client.on_message(filters.command(["start"]) & filters.private, group=1)
 async def start(bot, update):
-
-
     update_channel = "haicinemaclub"
     if update_channel:
         try:
             user = await bot.get_chat_member(update_channel, update.chat.id)
-            if user.status == "kicked":
-               await update.reply_text("🤭 Sorry Dude, You are **B A N N E D 🤣🤣🤣**")
+            if user.status == "kicked out":
+               await update.reply_text("🤭 Sorry Dude, You are B A N N E D 🤣🤣🤣")
                return
         except UserNotParticipant:
+            #await update.reply_text(f"Join @{update_channel} To Use Me")
             await update.reply_text(
                 text="❣ READ THIS INSTRUCTION ❣ \n\n🗣️ചോദിക്കുന്ന സിനിമകൾ നിങ്ങൾക്ക് ലഭിക്കണം എന്നുണ്ടെങ്കിൽ നിങ്ങൾ താഴെ കൊടുത്തിട്ടുള്ള ചാനലിൽ ജോയിൻ ചെയ്യണം. ജോയിൻ ചെയ്ത ശേഷം വീണ്ടും ഗ്രൂപ്പിൽ പോയി ആ ബട്ടനിൽ അമർത്തിയാൽ നിങ്ങൾക്ക് ഞാൻ ആ സിനിമ പ്രൈവറ്റ് ആയി അയച്ചു തരുന്നതാണ്..😍 \n\n🗣 In Order To Get The Movie Requested By You in Our Groups, You Will Have To Join Our Official Channel First. After That, Try Accessing That Movie Again From Our Group. I'll Send You That Movie Privately...😍 \n\nJoin Our Main Channel 🙏</b>",
                 reply_markup=InlineKeyboardMarkup([
-                    [ InlineKeyboardButton(text="Join My  Channel", url=f"https://t.me/haicinemaclub")]
+                    [ InlineKeyboardButton(text=" 🔰 𝙹𝙾𝙸𝙽 𝙼𝙰𝙸𝙽 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🔰 ", url=f"https://t.me/haicinemaclub")]
               ])
             )
             return
         except Exception:
             await update.reply_text("Something Wrong. Contact my Support Group")
             return
-
     try:
         file_uid = update.command[1]
     except IndexError:
@@ -45,32 +43,10 @@ async def start(bot, update):
             return
         
         caption = file_caption if file_caption != ("" or None) else ("<code>" + file_name + "</code>")
-        
-        if file_type == "document":
-        
-            await bot.send_document(
-                chat_id=update.chat.id,
-                document = file_id,
-                caption = caption,
-                parse_mode="html",
-                reply_to_message_id=update.message_id,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
-                                (
-                                    'Join Channel', url="https://t.me/Cinema_clubadmin1"
-                                )
-                        ]
-                    ]
-                )
-            )
-
-        elif file_type == "video":
-        
-            await bot.send_video(
-                chat_id=update.chat.id,
-                video = file_id,
+        try:
+            await update.reply_cached_media(
+                file_id,
+                quote=True,
                 caption = caption,
                 parse_mode="html",
                 reply_markup=InlineKeyboardMarkup(
@@ -78,44 +54,24 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/CrazyBotsz"
+                                    '🔶𝙉𝙀𝙒 𝙈𝙊𝙫𝙄𝙀𝙎🔶', url="https://t.me/haicinemaclub"
                                 )
                         ]
                     ]
                 )
             )
-            
-        elif file_type == "audio":
-        
-            await bot.send_audio(
-                chat_id=update.chat.id,
-                audio = file_id,
-                caption = caption,
-                parse_mode="html",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
-                                (
-                                    'Developers', url="https://t.me/CrazyBotsz"
-                                )
-                        ]
-                    ]
-                )
-            )
-
-        else:
-            print(file_type)
-        
+        except Exception as e:
+            await update.reply_text(f"<b>Error:</b>\n<code>{e}</code>", True, parse_mode="html")
+            LOGGER(__name__).error(e)
         return
 
     buttons = [[
-        InlineKeyboardButton('Developers', url='https://t.me/madshifter'),
-        InlineKeyboardButton('Join Group 🧾', url ='https://t.me/cinema_clubadmin12')
+        InlineKeyboardButton('🗣️𝙂𝙍𝙊𝙐𝙋', url='https://t.me/cinema_clubadmin12'),
+        InlineKeyboardButton('📺𝘾𝙃𝘼𝙉𝙉𝙀𝙇', url ='https://t.me/ccl_links')
     ],[
-        InlineKeyboardButton('Join Channel  🛠', url='https://t.me/Cinema_clubadmin1')
+        InlineKeyboardButton('👨‍🔧𝘾𝙍𝙀𝘼𝙏𝙊𝙍', url='https://t.me/madshifter')
     ],[
-        InlineKeyboardButton('New ott channel ⚙', url="https://t.me/pakkismovieshub")
+        InlineKeyboardButton('⚠️ Help', callback_data="")
     ]]
     
     reply_markup = InlineKeyboardMarkup(buttons)
